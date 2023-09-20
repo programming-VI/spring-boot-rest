@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Package
-          path: build/libs
+          path: build
   docker:
     needs: test-build
     runs-on: ubuntu-latest
@@ -45,6 +45,7 @@ jobs:
       - name: See the files
         shell: bash
         run: |
+          pwd
           ls -la
       - name: Build and push dockerfile
         uses: docker/build-push-action@v4
