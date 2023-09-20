@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  test-build-docker:
+  test-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,8 +24,10 @@ jobs:
         with:
           name: Package
           path: build/libs
-      - name: Checkout
-        uses: actions/checkout@v3
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up docker buildx
@@ -35,6 +37,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Download Package result
+        uses: actions/download-artifact@v3
+        with:
+          name: Package
       - name: Build and push dockerfile
         uses: docker/build-push-action@v4
         with:
