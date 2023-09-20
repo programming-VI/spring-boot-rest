@@ -42,6 +42,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: Package
+      - name: See the files
+        shell: bash
+        run: |
+          ls -la
       - name: Build and push dockerfile
         uses: docker/build-push-action@v4
         with:
