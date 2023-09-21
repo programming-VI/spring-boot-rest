@@ -19,7 +19,7 @@ jobs:
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
           arguments: build
-      - name: Build the gradle
+      - name: Copy the build gradle
         uses: actions/upload-artifact@v3
         with:
           name: Package
@@ -53,3 +53,17 @@ jobs:
           push: true
           context: .
           tags: santihs/myspringcontainer:latest
+  vm:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: copy Dockerfile and docker-compose
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          source: "Dockerfile,docker-compose.yml"
+          target: /home/azureuser/app
