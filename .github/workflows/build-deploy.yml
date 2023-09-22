@@ -67,3 +67,4 @@ jobs:
           key: ${{ secrets.KEY }}
           source: "Dockerfile,docker-compose.yml"
           target: /home/azureuser/app
+          timeout: 120s
