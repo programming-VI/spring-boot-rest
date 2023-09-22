@@ -61,19 +61,10 @@ jobs:
       - name: ls -la
         run: |
           ls -la
-      - name: Copy dockerfile
+      - name: Copy dockerfile and docker compose
         uses: nogsantos/scp-deploy@master
         with:
-          src: Dockerfile
-          host: ${{ secrets.SSH_HOST }}
-          remote: ${{ secrets.SSH_DIR }}
-          port: ${{ secrets.SSH_PORT }}
-          user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-      - name: Copy docker-compose.yml
-        uses: nogsantos/scp-deploy@master
-        with:
-          src: docker-compose.yml
+          src: ^(D|d)ocker.*
           host: ${{ secrets.SSH_HOST }}
           remote: ${{ secrets.SSH_DIR }}
           port: ${{ secrets.SSH_PORT }}
