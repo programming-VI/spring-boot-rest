@@ -64,7 +64,7 @@ jobs:
       - name: Copy dockerfile and docker compose
         uses: nogsantos/scp-deploy@master
         with:
-          src: ./^(D|d)ocker.*
+          src: Dockerfile docker-compose.yml
           host: ${{ secrets.SSH_HOST }}
           remote: ${{ secrets.SSH_DIR }}
           port: ${{ secrets.SSH_PORT }}
