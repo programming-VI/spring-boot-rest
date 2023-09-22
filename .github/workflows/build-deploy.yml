@@ -58,13 +58,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Download Package result
+        uses: actions/download-artifact@v3
+        with:
+          name: Package
       - name: ls -la
         run: |
           ls -la
       - name: Copy dockerfile and docker compose
         uses: nogsantos/scp-deploy@master
         with:
-          src: Dockerfile docker-compose.yml
+          src: Dockerfile docker-compose.yml *.jar
           host: ${{ secrets.SSH_HOST }}
           remote: ${{ secrets.SSH_DIR }}
           port: ${{ secrets.SSH_PORT }}
