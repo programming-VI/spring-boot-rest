@@ -58,10 +58,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Publish
+      - name: ls -la
+        run: |
+          ls -la
+      - name: Copy dockerfile
         uses: nogsantos/scp-deploy@master
         with:
-          src: .
+          src: Dockerfile
+          host: ${{ secrets.SSH_HOST }}
+          remote: ${{ secrets.SSH_DIR }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+      - name: Copy docker-compose.yml
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: docker-compose.yml
           host: ${{ secrets.SSH_HOST }}
           remote: ${{ secrets.SSH_DIR }}
           port: ${{ secrets.SSH_PORT }}
